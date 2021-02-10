@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Shader Graphs_carttonWatter
+  m_Shader: {fileID: -6465566751694194690, guid: 8c809861cd8327d08b819e57b9b3daa4,
+    type: 3}
+  m_ShaderKeywords: 
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs: []
+    m_Floats:
+    - Vector1_1AAC191F: 1
+    - Vector1_2B7A69BD: 0
+    - Vector1_341190FB: 100
+    - Vector1_F62DBE3D: 5
+    m_Colors:
+    - Color_1271E3C9: {r: 0.14504749, g: 0.5040995, b: 0.2968619, a: 0}
+    - Color_1CED59B3: {r: 0.04326229, g: 0.38679248, b: 0.034665354, a: 0}
