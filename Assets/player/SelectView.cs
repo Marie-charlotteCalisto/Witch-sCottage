@@ -13,7 +13,7 @@ public class SelectView : MonoBehaviour
     {
         BuildCam.SetActive(true);        
         FPCam.SetActive(false);
-        //TPCam.SetActive(false);
+        TPCam.SetActive(false);
     }
 
     // Update is called once per frame
@@ -22,11 +22,27 @@ public class SelectView : MonoBehaviour
             
     }
 
+
+    public void onClickBuildMode()
+    {
+        BuildCam.SetActive(true);        
+        FPCam.SetActive(false);
+        TPCam.SetActive(false);
+ 
+    }
     public void onClickFP()
     {
         FPCam.SetActive(true);
         BuildCam.SetActive(false);        
-        //TPCam.SetActive(false);
+        TPCam.SetActive(false);
  
     }
+    public void onClickTP()
+    {
+        FPCam.SetActive(false);
+        BuildCam.SetActive(false);        
+        TPCam.SetActive(true);
+ 
+    }
+
 }
