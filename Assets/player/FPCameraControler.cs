@@ -7,13 +7,11 @@ public class FPCameraControler : MonoBehaviour
     private float mouseSensitivity = 100f;
 
     public Transform PlayerBody;
+    public CharacterController controller;
 
-    float xRotation = 0f;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+
+    private float xRotation = 0f;
+    private float speed = 12f;
 
     // Update is called once per frame
     void Update()
@@ -29,8 +27,16 @@ public class FPCameraControler : MonoBehaviour
 
             transform.localRotation = Quaternion.Euler(xRotation, 90f, 0f);
 
-             PlayerBody.Rotate(Vector3.up * mouseX);
+            PlayerBody.Rotate(Vector3.up * mouseX);
         }
+
+        
+        float z = Input.GetAxis("Horizontal");
+        float x = Input.GetAxis("Vertical");
+
+        Vector3 move = PlayerBody.right * x + PlayerBody.forward * z;
+
+        controller.Move(move * speed * Time.deltaTime);
 
     }
 }
