@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class WallBuild : MonoBehaviour
 {
+    private bool BuildWall = false;
     private bool building = false;
     public bool GridSnaping = true;
     private bool SnapEdge = false;
@@ -13,6 +14,7 @@ public class WallBuild : MonoBehaviour
     
     public GameObject wallPrefab;
     private GameObject wall;
+    public Camera cam;
 
 
     private List<GameObject> walls;
@@ -23,6 +25,19 @@ public class WallBuild : MonoBehaviour
         walls = new List<GameObject>();
     }
 
+    void OnDisable()
+    {
+        BuildWall = false;
+    }
+
+    public void SetBuildMode()
+    {
+        BuildWall = !BuildWall;
+        Destroy(wall);
+        Destroy(start);
+        Destroy(end);
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -31,16 +46,24 @@ public class WallBuild : MonoBehaviour
 
     private void GetInput()
     {
-        if (Input.GetMouseButtonDown(0))
-            SetStart();
-        else if (Input.GetMouseButtonUp(0))
-            SetEnd();
-        else if (Input.GetKeyDown(KeyCode.LeftShift))
-            SnapEdge = true;
-        else if (Input.GetKeyUp(KeyCode.LeftShift))
-            SnapEdge = false;
-        if (building)
-            Adjust();
+        if (BuildWall)
+        {
+            if (Input.GetMouseButtonDown(1))
+            {
+                BuildWall = false;
+                return;
+            }
+            if (Input.GetMouseButtonDown(0))
+                SetStart();
+            else if (Input.GetMouseButtonUp(0))
+                SetEnd();
+            else if (Input.GetKeyDown(KeyCode.LeftShift))
+                SnapEdge = true;
+            else if (Input.GetKeyUp(KeyCode.LeftShift))
+                SnapEdge = false;
+            if (building)
+                Adjust();
+        }
     }
 
     private void SetStart()
@@ -117,18 +140,15 @@ public class WallBuild : MonoBehaviour
     
     private void SetEndPoles()
     {
-        GameObject p1 = (GameObject)Instantiate(edgePrefab, start.transform.position, start.transform.rotation);
-        GameObject p2 = (GameObject)Instantiate(edgePrefab, end.transform.position, end.transform.rotation);
-    
-        p1.tag = "wall";
-        p2.tag = "wall";
-        walls.Add(p1);
-        walls.Add(p2);
+        start.tag = "wall";
+        end.tag = "wall";
+        walls.Add(start);
+        walls.Add(end);
     }
 
     Vector3 GetWorldPoint()
     {
-        Ray ray = GetComponent<Camera>().ScreenPointToRay(Input.mousePosition);
+        Ray ray = cam.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit))
             return (hit.point + new Vector3(0,2.5f,0));
