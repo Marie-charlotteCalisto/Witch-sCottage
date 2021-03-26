@@ -8,14 +8,22 @@ public class TPCameraController : MonoBehaviour
 
     public Transform PlayerBody;
     public CharacterController controller;
-
+    public GameObject Water;
 
     private float xRotation = 0f;
+    private float WaterHeight;
     private float speed = 12f;
+    private Vector3 pos;
 
+    void Start()
+    {
+        WaterHeight = Water.transform.position.y;
+    }
     // Update is called once per frame
     void Update()
     {
+
+        pos = PlayerBody.position;
         // Rotation
         if (Input.GetMouseButton(1))
         {
@@ -30,9 +38,14 @@ public class TPCameraController : MonoBehaviour
         float z = -Input.GetAxis("Horizontal");
         float x = Input.GetAxis("Vertical");
 
-        Vector3 move = PlayerBody.right * x + PlayerBody.forward * z;
+        Vector3 move = PlayerBody.right * x + PlayerBody.forward * z + Vector3.down;
 
         controller.Move(move * speed * Time.deltaTime);
+
+        float terrainHeight = Terrain.activeTerrain.SampleHeight(PlayerBody.position);
+        if(terrainHeight <= WaterHeight){
+            PlayerBody.position = pos;
+        }
 
     }
 }
